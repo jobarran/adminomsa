@@ -1,0 +1,116 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %}Obras{% endblock %}
+{% block content %}
+
+<div class="page-wrapper">
+    <!-- Page header -->
+  <div class="page-header d-print-none">
+    <div class="container-xl">
+      <div class="row g-2 align-items-center">
+        <div class="col">
+          <h2 class="page-title"> {{ object.obra }} - {{ object.obra_id }} </h2>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Page body -->
+  <div class="page-body">
+    <div class="container-xl">
+      <div class="card">
+        <div class="row g-0">
+          <div class="col d-flex flex-column">
+            <div class="card-body">
+              <div class="modal-body">
+                <!-- Formulario -->
+                <form action="" method="post" enctype="multipart/form-data">{% csrf_token %}
+                  <div class="row">
+                    <div class="col-md-4">
+                      <img src="{{object.imagen.url}}" class="rounded img-fluid p-1">
+                    </div>
+                    <div class="col-md-8">
+                      <div hidden>{{ form.as_p }}</div>
+                      <div class="row">
+                        <div class="col">
+                          <div class="form-outline">
+                            <label class="form-label">Nombre</label>
+                            {{ form.obra }}
+                            {{ form.obra.errors }}
+                          </div>
+                        </div>
+                        <div class="col">
+                          <div class="form-outline">
+                            <label class="form-label">Identificador</label>
+                            {{ form.obra_id }}
+                            {{ form.obra_id.errors }}
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row mt-3">
+                        <div class="col">
+                          <div class="form-outline">
+                            <label class="form-label">Estado</label>
+                            {{ form.estado }}
+                            {{ form.estado.errors }}
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row mt-3">
+                        <div class="col">
+                          <div class="form-outline">
+                            <label class="form-label">Pisos</label>
+                            {{ form.pisos }}
+                            {{ form.pisos.errors }}
+                          </div>
+                        </div>
+                        <div class="col">
+                          <div class="form-outline">
+                            <label class="form-label">Posiciones</label>
+                            {{ form.posiciones }}
+                            {{ form.posiciones.errors }}
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row mt-3">
+                        <div class="col">
+                          <div class="form-outline">
+                            <label class="form-label">Agregar o modificar foto</label>
+                            {{ form.imagen }}
+                            {{ form.imagen.errors }}
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row mt-3">
+                        <div class="col">
+                          <input type="submit" class="btn btn-outline-secondary" style = "width:100%" value="Guardar">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+    
+  </div>
+
+
+
+
+{% endblock %}
+
+{% block extrasjs %}
+
+<script type="text/javascript">
+if ( window.history.replaceState ) {
+  window.history.replaceState( null, null, window.location.href );
+}
+</script>
+
+
+{% endblock extrasjs %}

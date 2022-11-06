@@ -1,0 +1,113 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %}Obras{% endblock %}
+{% block content %}
+
+<style>
+    .card {
+      margin-top: 20px;
+      margin-bottom: 10px;
+    }
+</style>
+
+<div class="page-wrapper">
+  <div class="container-xl">
+    <!-- Page title -->
+    <div class="page-header d-print-none">
+      <div class="row g-2 align-items-center">
+        <div class="col">
+          <!-- Page pre-title -->
+          <div class="page-pretitle">
+            Listado
+          </div>
+          <h2 class="page-title">
+            Obras en ejecución
+          </h2>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="page-body">
+    <div class="container-xl">              
+      <div class="col-12">
+        <div class="card mb-3">
+          <div class="card-header">
+              <h3 class="card-title">Agregar Herramienta o Equipo</h3>
+          </div>
+          <div class="card-body">
+            <div>
+              <form action="" method="post" enctype="multipart/form-data">{% csrf_token %}
+                <div class="row">
+                  <div class="col">
+                    <div >{{ form.as_hidden }}</div>
+                    <div class="row">
+                      <div class="col">
+                        <div class="form-outline">
+                          <label class="form-label">Nombre</label>
+                          {{ form.obra }}
+                          {{ form.obra.errors }}
+                        </div>
+                      </div>
+                      <div class="col">
+                        <div class="form-outline">
+                          <label class="form-label">Identificador</label>
+                          {{ form.obra_id }}
+                          {{ form.obra_id.errors }}
+                        </div>
+                      </div>
+                      <div class="col">
+                        <div class="form-outline">
+                          <label class="form-label">Estado</label>
+                          {{ form.estado }}
+                          {{ form.estado.errors }}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row mt-3">
+                      <div class="col">
+                        <div class="form-outline">
+                          <label class="form-label">Pisos</label>
+                          {{ form.pisos }}
+                          {{ form.pisos.errors }}
+                        </div>
+                      </div>
+                      <div class="col">
+                        <div class="form-outline">
+                          <label class="form-label">Posiciones</label>
+                          {{ form.posiciones }}
+                          {{ form.posiciones.errors }}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row mt-3">
+                      <div class="col">
+                        <div class="form-outline">
+                          <label class="form-label">Slug</label>
+                          <p class="font-weight-normal">Este elemento sirve como identificador interno de obra, por favor completar con el mismo ID de obra.</p>
+                          {{ form.slug }}
+                          {{ form.slug.errors }}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row mt-3">
+                      <div class="col">
+                        <input type="submit" class="btn btn-outline-secondary" style = "width:100%" value="Guardar">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+
+<!--  
+href 
+{% url 'obras:obra' obra.obra_id obra.obra|slugify %}
+-->

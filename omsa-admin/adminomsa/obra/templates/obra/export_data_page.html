@@ -1,0 +1,26 @@
+<div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+  <div class="modal-content">
+      <div class="modal-header">
+          <div class="row">
+              <h5 class="modal-title mt-2">Exportar datos</h5>
+          </div>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form role="form" method="POST" action="{% url 'obra:export_data' %}" enctype="multipart/form-data">
+        <div class="modal-body">
+          <!-- Formulario -->
+          {% csrf_token %}
+             <div class="row mt-3">
+                <button class="btn btn-secondary" type="submit">Exportar</button>
+            </div>
+          </div>
+        </div>
+      </form>
+  </div>
+</div>
+
+
+
+
+
+

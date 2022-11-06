@@ -1,0 +1,230 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %}Obras{% endblock %}
+{% block content %}
+{% include "obra/includes/submenu.html" %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+
+
+<div class="page-body">
+    <div class="container-xl">
+        <div class="row row-deck row-cards">
+            <div class="col-sm-6 col-lg-2">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center">
+                            <div class="subheader">Montaje de módulos</div>
+                        </div>
+                        <div class="h1 mb-3">{{ G1_prom }}%</div>
+                        <hr style="width: 75%;margin-top:  1em; margin-bottom:  1em;">
+                        <div class="d-flex mb-2">
+                            <div>{{ montado_mod }} / {{ total_mod }}</div>
+                        </div>
+                        <div class="progress progress-sm">
+                            <div class="progress-bar bg-blue" style="width: {{ G1_prom }}%" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" aria-label="75% Complete">
+                                <span class="visually-hidden">75% Complete</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-2">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center">
+                            <div class="subheader">Módulos completos</div>
+                        </div>
+                        <div class="h1 mb-3">{{ G2_prom }}%</div>
+                        <hr style="width: 75%;margin-top:  1em; margin-bottom:  1em;">
+                        <div class="d-flex mb-2">
+                            <div>{{ completo_mod }} / {{ total_mod }}</div>
+                        </div>
+                        <div class="progress progress-sm">
+                            <div class="progress-bar bg-blue" style="width: {{ G2_prom }}%" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" aria-label="75% Complete">
+                                <span class="visually-hidden">75% Complete</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>  
+            <div class="col-sm-6 col-lg-2">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center">
+                            <div class="subheader">Ratio de montaje diario</div>
+                        </div>
+                        <div class="d-flex align-items-baseline">
+                            <div class="h1 mb-0 me-2">{{ ratio }}</div>
+                        </div>
+                        <hr style="width: 75%;margin-top:  1em; margin-bottom:  1em;">
+                        <div class="d-flex align-items-center">
+                            <div class="subheader">Ratio de montaje efectivo</div>
+                        </div>
+                        <div class="d-flex align-items-baseline">
+                            <div class="h1 mb-0 me-2">{{ ratio_efectivo }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-2">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center">
+                            <div class="subheader">Stock apto montaje</div>
+                        </div>
+                        <div class="d-flex align-items-baseline">
+                            <div class="h1 mb-0 me-2">{{ stock_apto }}</div>
+                        </div>
+                        <hr style="width: 75%;margin-top:  1em; margin-bottom:  1em;">
+                        <div class="d-flex align-items-center">
+                            <div class="subheader">Stock total</div>
+                        </div>
+                        <div class="d-flex align-items-baseline">
+                            <div class="h1 mb-0 me-2">{{ stock_total }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>            
+            <div class="col-sm-6 col-lg-3">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center">
+                            <div class="subheader">Operarios</div>
+                            <div class="ms-auto lh-1">
+                                <div class="dropdown">
+                                    <a class="dropdown-toggle text-muted" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Last 7 days</a>
+                                    <div class="dropdown-menu dropdown-menu-end">
+                                        <a class="dropdown-item active" href="#">Last 7 days</a>
+                                        <a class="dropdown-item" href="#">Last 30 days</a>
+                                        <a class="dropdown-item" href="#">Last 3 months</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-baseline">
+                            <div class="h1 mb-3 me-2">2,986</div>
+                            <div class="me-auto">
+                                <span class="text-green d-inline-flex align-items-center lh-1">
+                                    4% <!-- Download SVG icon from http://tabler-icons.io/i/trending-up -->
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon ms-1" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><polyline points="3 17 9 11 13 15 21 7" /><polyline points="14 7 21 7 21 14" /></svg>
+                                </span>
+                            </div>
+                        </div>
+                        <div id="chart-active-users" class="chart-sm"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4"></div>
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex">
+                            <h3 class="card-title">Montaje</h3>
+                        </div>
+                        <canvas class="montaje-diario-chart" id="montaje-diario" height="50px" ></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-xl-4">
+                <div class="card">
+                    <div class="card-body">
+                        <div id="chart-completion-tasks-6"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-xl-4">
+                <div class="card">
+                    <div class="card-body">
+                        <div id="chart-completion-tasks"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-xl-4">
+                <div class="card">
+                    <div class="card-body">
+                        <div id="chart-demo-pie"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
+
+{% block extrasjs %}
+
+<script src="{% static 'core/js/charts.js' %}" type="text/javascript"></script>
+
+<script>
+    function convertDate(date) {
+        var yyyy = date.getFullYear().toString();
+        var mm = (date.getMonth()+1).toString();
+        var dd  = date.getDate().toString();
+
+        var mmChars = mm.split('');
+        var ddChars = dd.split('');
+
+        return yyyy + '-' + (mmChars[1]?mm:"0"+mmChars[0]) + '-' + (ddChars[1]?dd:"0"+ddChars[0]);
+    }
+
+    var xValues = [{% for item in G5_labels %} convertDate(new Date("{{ item }}")),{% endfor %}];
+    var yValues = [{% for item in G5_values %}{{ item }},{% endfor %}];
+    var yValues2 = [{% for item in G5_recepcion %}{{ item }},{% endfor %}];
+    var prom = [{% for item in G5_prom %}{{ item }},{% endfor %}];
+    
+    new Chart(document.getElementById("montaje-diario"), {
+    type: 'line',
+    data: {
+        labels: xValues,
+        datasets: [{ 
+            label: "Montaje",
+            borderColor: "#3e95cd",
+            backgroundColor: "#3e95cd",
+            fill: false,
+            data: yValues
+        },
+        { 
+            label: "Recepción",
+            borderColor: "#ffe8a1",
+            backgroundColor: "#ffd966",
+            fill: false,
+            data: yValues2
+        },
+        { 
+            label: "Promedio de montaje",
+            borderColor: "#e9c0ab",
+            backgroundColor: "#cd6e3e",
+            fill: false,
+            data: prom
+        },
+        ]
+    },
+    
+    options: {
+            legend: {
+                display: false,
+                displayColors: false,
+            },
+            scales: {
+                xAxes: [{
+                    ticks: {
+                        display: false
+                    }
+                }]
+            },
+            tooltips: {
+                displayColors: false,
+                backgroundColor: "#1E293E",
+            }
+        }
+    });
+</script>
+options: {
+
+  }
+
+
+
+{% endblock extrasjs %}

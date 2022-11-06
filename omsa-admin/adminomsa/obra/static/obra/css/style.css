@@ -1,0 +1,67 @@
+body{
+  background: #ffffff;
+  font-family: "Poppins",sans-serif;
+  margin: 100px;
+}
+a{
+  text-decoration: none;
+}
+.periodic-table {
+  display: grid;
+  grid-template-columns: repeat(96, 20px);
+  grid-template-rows: repeat(10, 30px);
+  grid-gap: 1px;
+  margin: auto;
+  max-width: 1200px;
+  justify-content: center;
+}
+
+.periodic-element {
+  padding: 1px;
+  position: relative;
+  z-index: 1;
+  cursor: default;
+  transition: all 0.3s ease;
+}
+/* 
+.periodic-element .periodic-element-inner{
+  padding: 1px 1px;
+  width: calc(100% - 5px);
+  height: calc(100% - 5px);
+  transition: inherit;
+}
+*/
+.periodic-element .title {
+  font: 700 5px "Poppins", sans-serif;
+  margin: 0.3em 0 0;
+  transition: 0.8s ease 600ms;
+}
+.periodic-element .desc {
+  font: 500 3px"Poppins", sans-serif;
+  margin-top: -0.2em;
+}
+.periodic-element:hover {
+  transform: scale(2.5);
+  z-index: 15;
+}
+.periodic-element:hover .periodic-element-inner {
+  background: transparent;
+}
+.periodic-element:hover .title .desc, .periodic-element:hover {
+  -webkit-text-fill-color: #222;
+}
+.periodic-element:hover::after {
+  top: 105%;
+  opacity: 1;
+}
+.periodic-element {
+  cursor: pointer;
+}
+.one {
+  background: linear-gradient(to bottom right,#f3f9a6 0%, #cbc634 100%);
+}
+.one .title, .one .desc {
+  background: -webkit-linear-gradient(#f3f9a6, #cbc634);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}

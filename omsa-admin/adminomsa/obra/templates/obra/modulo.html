@@ -1,0 +1,149 @@
+<div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <div class="row">
+                <h5 class="modal-title mt-2">Módulo {{ object.modulo }} | ID {{ object.identificador }}</h5>
+                <h6>Piso {{ object.piso }} | Posición {{ object.posicion }}</h6>
+            </div>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form id='fichamod'  action="{% url 'obra:modulo' object.id %}" method="post" enctype="multipart/form-data">{% csrf_token %}
+            <div class="modal-body">
+                <!-- Formulario -->
+                <div class="row mb-3">
+                    <div class="col">
+                        {% if object.estado == 'fabrica' %}
+                            <div class="p-1 mb-2 bg-light border border-secondary text-secondary text-center text-uppercase rounded">{{ object.estado }}</div>
+                        {% elif object.estado == 'recibido' %}
+                            <div class="p-1 mb-2 bg-secondary text-white text-center text-uppercase rounded">{{ object.estado }}</div>
+                        {% elif object.estado == 'montado' %}
+                            <div class="p-1 mb-2 bg-success text-white text-center text-uppercase rounded">{{ object.estado }}</div>
+                        {% elif object.estado == 'completo' %}
+                            <div class="p-1 mb-2 bg-success text-white text-center text-uppercase rounded">{{ object.estado }}</div>
+                        {% elif object.estado == 'incompleto' %}
+                            <div class="p-1 mb-2 bg-danger text-white text-center text-uppercase rounded">{{ object.estado }}</div>
+                        {% elif object.estado == 'reposicion' %}
+                            <div class="p-1 mb-2 bg-warning text-white text-center text-uppercase rounded">{{ object.estado }}</div>
+                        {% elif object.estado == 'falta_id' %}
+                            <div class="p-1 mb-2 bg-warning text-white text-center text-uppercase rounded">Falta ID</div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-outline">
+                            <label class="form-label">ID</label>
+                            {{ form.identificador }}
+                            {{ form.identificador.errors }}
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-outline">
+                            <label class="form-label">Fecha de montaje</label>
+                            {{ form.fecha_montado }}
+                            {{ form.fecha_montado.errors }}
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-label mt-3">Recepción de módulos en obra</div>
+                </div>
+                    <div class="row">
+                        <div class="col">
+                            <label class="form-check form-switch mt-2">
+                                {{ form.recibido }}
+                                {{ form.recibido.errors }}
+                                <span class="form-check-label">Recibido</span>
+                            </label>
+                        </div>
+                        <div class="col">
+                            <div class="form-outline">
+                                {{ form.fecha_recibido }}
+                                {{ form.fecha_recibido.errors }}
+                            </div>
+                        </div>
+                    </div>
+                <div class="row">   
+                    <div class="col">
+                        <div class="form-label mt-3">Marque las tareas realizadas</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <label class="form-check form-switch">
+                            {{ form.anclajes }}
+                            {{ form.anclajes.errors }}
+                            <span class="form-check-label">Coloc. de anclajes</span>
+                        </label>
+                    </div>
+                    <div class="col">
+                        <label class="form-check form-switch">
+                            {{ form.lana }}
+                            {{ form.lana.errors }}
+                            <span class="form-check-label">Coloc. de lana</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <label class="form-check form-switch">
+                            {{ form.sellados_int }}
+                            {{ form.sellados.errors }}
+                            <span class="form-check-label">Sellados interiores</span>
+                        </label>
+                    </div>
+                    <div class="col">
+                        <label class="form-check form-switch">
+                            {{ form.pintura }}
+                            {{ form.pintura.errors }}
+                            <span class="form-check-label">Pintura cortahumo</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-label mt-2">Informe de reposición en obra</div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <label class="form-check form-switch mt-2">
+                            {{ form.reposicion }}
+                            {{ form.reposicion.errors }}
+                            <span class="form-check-label">Reposición</span>
+                        </label>
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="form-outline">
+                            {{ form.reposicion_obs}}
+                            {{ form.reposicion_obs.errors }}
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-label mt-2">Apto Montaje</div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <label class="form-check form-switch mt-2">
+                            {{ form.apto }}
+                            {{ form.apto.errors }}
+                            <span class="form-check-label">Módulo sin restricciones para montaje</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col">
+                        <div class="form-outline">
+                            <label class="form-label">Observaciones</label>
+                            {{ form.observaciones}}
+                            {{ form.observaciones.errors }}
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                
+                    <button class="btn btn-secondary" type="submit">Confirmar</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

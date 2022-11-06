@@ -1,0 +1,13 @@
+--------BUGS
+* Obra - Vista - front
+
+------- PENDING TASK
+* obra - models - Obra - id (unique=True)
+* return buttons in all pages
+* 404 page
+* accesos / restricciones
+* edit pos / niv in obra (save changes)
+* ObraCreate - slug automatic as ID
+
+--------IDEAS
+* Obras - Listado de obras futuras y terminadas

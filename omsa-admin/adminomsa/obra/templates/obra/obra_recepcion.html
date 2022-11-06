@@ -1,0 +1,111 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %}Obras{% endblock %}
+{% block content %}
+
+<style>
+.centered {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+</style>
+
+{% include "obra/includes/submenu.html" %}
+<link href="{% static 'core/css/jquery.dataTables.min.css' %}" rel="stylesheet" type="text/css" />
+
+
+{% include "obra/includes/loader_1.html" %}
+
+<div class="row">
+    <div class="col-6">
+        <div class="card mb-3">
+            <form action="" method=POST>
+                {% csrf_token %}
+            <div class="card-header">
+                <h3 class="card-title">Recepción de modulos en obra</h3>
+                <button type="submit" class="btn btn-secondary btn-sm ms-auto" >
+                    Guardar cambios
+                </button>
+            </div>
+
+            <div class="table-responsive">
+
+                <table id="example" class="table card-table table-vcenter text-nowrap table-hover datatable" width="100%">
+                    <thead>
+                        <tr>
+                            <th>Ref</th>
+                            <th>Piso</th>
+                            <th>Posicion</th>
+                            <th>Modulo</th>
+                            <th>Recibido</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>Ref</th>
+                            <th>Piso</th>
+                            <th>Posicion</th>
+                            <th>Modulo</th>
+                            <th>Recibido</th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        {% for mod in modfab|dictsort:'id' %}
+                            {% if mod.modulo.modulo != 'VACIO' %}
+                                <tr>
+                                    <td>{{mod.id}}</td>                                
+                                    <td>{{mod.piso}}</td>
+                                    <td>{{mod.posicion}}</td>
+                                    <td>{{mod.modulo}}</td>
+                                    <td class="form-group centered">
+                                        {% if mod.recibido %}
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" checked="checked" value={{mod.id}} name="boxes">
+                                        {% else %}
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value={{mod.id}} name="boxes">
+
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {%endif%}
+                        {% endfor %}
+                    </tbody>
+
+
+                </table>
+
+            </div>
+        </div>
+    </div>
+    <div class="col-6">
+        <div class="card mb-3">
+            <div class="card-header">
+                <h3 class="card-title">Estado de recepción de modulos</h3>
+            </div>
+            <div class="card-body">
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% include "obra/includes/loader_2.html" %}
+{% endblock %}
+
+{% block extrasjs %}
+<script src="{% static 'core/js/jquery-1.11.3.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'core/js/jquery.dataTables.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'core/js/obra_list.js' %}" type="text/javascript"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.js" type="text/javascript"></script>
+<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+if ( window.history.replaceState ) {
+  window.history.replaceState( null, null, window.location.href );
+}
+</script>
+
+
+{% endblock extrasjs %}

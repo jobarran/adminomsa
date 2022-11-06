@@ -1,0 +1,172 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %}Obras{% endblock %}
+{% block content %}
+{% include "obra/includes/submenu.html" %}
+
+<link rel="stylesheet" href="{% static 'core/css/stylesheet_vistas.css' %}">
+
+<style>
+.alert-danger {
+  background-color: #f2dede;
+  border-color: #ebccd1;
+  color: #a94442;
+}
+
+.alert-danger hr {
+  border-top-color: #e4b9c0;
+}
+
+.alert-danger .alert-link {
+  color: #843534;
+}
+
+.pos {
+  width: calc(100% * (1/
+    {% for mod in modulos %}
+        {%if mod.piso == '5' and mod.posicion == 5 %}
+            {{ mod.modulo.obra.posiciones }}
+        {%endif%}
+    {% endfor %} 
+  ));
+}
+</style>
+
+<div class="page-body">
+    <div class="container-xl">
+        <div class="row row-deck row-cards"> 
+                {% for mod in modulos %}
+                    {%if 'repetido' in mod.estado%}
+                    <div class="col-md-12">
+                        <div class="alert alert-danger mt-0 mb-0" role="alert">
+                            <strong>ID repetido!</strong> Módulo {{mod.modulo}} | Piso {{mod.piso}} | Pos {{mod.posicion}} | ID: {{mod.identificador}} - <a style="cursor:pointer;" onclick="abrir_modal_edicion('{% url 'obra:mod' mod.id %}')" class="alert-link">Ver ficha</a>
+                        </div>
+                    </div>
+                    {% endif %}
+                {% endfor %} 
+        </div> 
+        <div class="row row-deck row-cards mt-2"> 
+            <div class="col-md-12">
+            <!-- CONTENIDO -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                        Vista
+                        </h3>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="grid-container">
+                            <div class="pisos">
+                                {% for p in modulos  %}
+                                    {%if p.posicion == 7 %}
+                                        <div class="vista-piso">
+                                            <div class="title">{{p.piso}}</div>
+                                        </div>
+                                    {%endif%}
+                                {%endfor%}
+                            </div>            
+                            <div class="vista">
+                                {% for mod in modulos|dictsort:'id' %}
+                                    {% if mod.modulo.modulo == 'VACIO' %}<div class="vista-no-modulo pos"></div>{% else %}
+                                        {%if mod.estado == "fabrica"%}
+                                            <div class="vista-modulo pos fab">
+                                                <div class="vista-modulo-inner">
+                                                    {% if request.user.is_staff %}
+                                                        <a class="stretched-link" style="cursor:pointer;"  onclick="abrir_modal_edicion('{% url 'obra:mod' mod.id %}')"></a>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        {%elif mod.estado == "montado"%}
+                                            <div class="vista-modulo pos mon">
+                                                <div class="title">{{mod.modulo.modulo}}</div>
+                                                <div class="desc">{{mod.identificador}}</div>
+                                                <div class="vista-modulo-inner">
+                                                    {% if request.user.is_staff %}
+                                                        <a class="stretched-link" style="cursor:pointer;"  onclick="abrir_modal_edicion('{% url 'obra:mod' mod.id %}')"></a>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        {%elif mod.estado == "recibido"%}
+                                            <div class="vista-modulo pos rec">
+                                                <div class="vista-modulo-inner">
+                                                    {% if request.user.is_staff %}
+                                                        <a class="stretched-link" style="cursor:pointer;"  onclick="abrir_modal_edicion('{% url 'obra:mod' mod.id %}')"></a>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        {%elif mod.estado == "completo"%}
+                                            <div class="vista-modulo pos com">
+                                                <div class="vista-modulo-inner">
+                                                    {% if request.user.is_staff %}
+                                                        <a class="stretched-link" style="cursor:pointer;"  onclick="abrir_modal_edicion('{% url 'obra:mod' mod.id %}')"></a>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        {%elif mod.estado == "incompleto"%}
+                                            <div class="vista-modulo pos inc">
+                                                <div class="vista-modulo-inner">
+                                                    {% if request.user.is_staff %}
+                                                        <a class="stretched-link" style="cursor:pointer;"  onclick="abrir_modal_edicion('{% url 'obra:mod' mod.id %}')"></a>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                            {%elif mod.estado == "no_apto" %}
+                                            <div class="vista-modulo pos rec apt">
+                                                <div class="vista-modulo-inner">
+                                                    {% if request.user.is_staff %}
+                                                        <a class="stretched-link" style="cursor:pointer;"  onclick="abrir_modal_edicion('{% url 'obra:mod' mod.id %}')"></a>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        {%elif mod.estado == "repetido" or mod.estado == "falta_id"%}
+                                            <div class="vista-modulo pos rep">
+                                                <div class="vista-modulo-inner">
+                                                    {% if request.user.is_staff %}
+                                                        <a class="stretched-link" style="cursor:pointer;"  onclick="abrir_modal_edicion('{% url 'obra:mod' mod.id %}')"></a>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        {% endif %}
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                            <div class="esq">
+                                <div class="vista-piso pos"></div>
+                            </div>
+                            <div class="posicion">
+                                {% for p in modulos|dictsort:'posicion' %}
+                                        {%if p.piso == '5' %}
+                                            <div class="vista-posicion pos">
+                                                <div class="title">{{p.posicion}}</div>
+                                            </div>
+                                        {%endif%}
+                                {%endfor%}
+
+                            </div> 
+                        </div>
+                    </div>
+                </div>
+            <!-- FIN CONTENIDO -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal modal-blur fade" id="edicion" role="dialog" aria-hidden="true" ></div>
+
+{% endblock %}
+
+{% block extrasjs %}
+
+<script src="{% static 'core/js/jquery-1.11.3.min.js' %}" type="text/javascript"></script>
+
+<script type="text/javascript">
+    var $ = jQuery.noConflict();
+    function abrir_modal_edicion(url){
+        $('#edicion').load(url, function (){
+            $(this).modal('show');
+        });
+    }
+</script>
+
+{% endblock extrasjs %}

@@ -1,0 +1,112 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %}Obras{% endblock %}
+{% block content %}
+
+<div class="page-wrapper">
+  <div class="container-xl">
+    <!-- Page title -->
+    <div class="page-header d-print-none">
+      <div class="row g-2 align-items-center">
+        <div class="col">
+          <!-- Page pre-title -->
+          <div class="page-pretitle">
+            Herramientas y Equipos
+          </div>
+          <h2 class="page-title">
+            Agregar
+          </h2>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="page-body">
+    <div class="container-xl">              
+      <div class="col-12">
+        <div class="card mb-3">
+          <div class="card-header">
+              <h3 class="card-title">Agregar Herramienta o Equipo</h3>
+          </div>
+          <div class="card-body">
+            <div>
+              <form action="" method="post" enctype="multipart/form-data">{% csrf_token %}
+                <div class="row">
+                  <div class="col">
+                    <div >{{ form.as_hidden }}</div>
+                    <div class="row">
+                      <div class="col">
+                        <div class="form-outline">
+                          <label class="form-label">Nombre</label>
+                          {{ form.nombre }}
+                          {{ form.nombre.errors }}
+                        </div>
+                      </div>
+                      <div class="col">
+                        <div class="form-outline">
+                          <label class="form-label">Marca</label>
+                          {{ form.marca }}
+                          {{ form.marca.errors }}
+                        </div>
+                      </div>
+                      <div class="col">
+                        <div class="form-outline">
+                          <label class="form-label">Identificador</label>
+                          {{ form.identificador }}
+                          {{ form.identificador.errors }}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row mt-3">
+                      <div class="col">
+                        <div class="form-outline">
+                          <label class="form-label">Categoría</label>
+                          {{ form.categoria }}
+                          {{ form.categoria.errors }}
+                        </div>
+                      </div>
+                      <div class="col">
+                        <div class="form-outline">
+                          <label class="form-label">Estado</label>
+                          {{ form.estado }}
+                          {{ form.estado.errors }}
+                        </div>
+                      </div>
+                      <div class="col">
+                        <div class="form-outline">
+                          <label class="form-label">Obra</label>
+                          {{ form.obra_actual }}
+                          {{ form.obra_actual.errors }}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row mt-3">
+                      <div class="col">
+                        <div class="form-outline">
+                          <label class="form-label">Observaciones</label>
+                          {{ form.observaciones }}
+                          {{ form.observaciones.errors }}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row mt-3">
+                      <div class="col">
+                        <input type="submit" class="btn btn-outline-secondary" style = "width:100%" value="Guardar">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+
+<!--  
+href 
+{% url 'obras:obra' obra.obra_id obra.obra|slugify %}
+-->
